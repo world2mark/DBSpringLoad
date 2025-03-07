@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <title>DBSpringLoad Java harness</title>
+    <script src="/zlamal-simple.js"></script>
+    <style>
+        h1 {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            color: #666666;
+        }
+
+        .workloadOuterDiv {
+            padding: 0.25em;
+        }
+
+        .workloadInnerDiv {
+            padding: 0.1em;
+            border: 2px solid lightblue;
+            background: #ddeeff;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            color: #333333;
+        }
+
+        .workloadTitle {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 1.1em;
+            font-weight: bolder;
+        }
+
+        .workloadDescriptionDiv {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            color: #666666;
+            padding: 0.25em;
+            font-size: 0.9em;
+        }
+
+        .workloadURLDiv {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 0.9em;
+            padding: 0.1em 2em 0.1em 2em;
+        }
+
+        .workloadURLs {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            padding: 0.25em;
+            font-size: 0.9em;
+        }
+
+        .OuterScrollDiv {
+            position: sticky;
+            top: 1em;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            height: 20em;
+            background: lightgray;
+            border: 2px solid darkgray;
+            padding: 0.25em;
+        }
+
+        .InnerScrollDiv {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 0.8em;
+        }
+
+        .MessageDivElem {
+            padding: 0.25em;
+        }
+
+        .TimeStampElem {
+            color: #666666;
+        }
+
+        .MessageRespElem {
+            color: darkblue;
+        }
+
+        .MessageErrorElem {
+            color: darkred;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header th:replace="~{fragments/HeaderTitle :: BasicHeader}"></header>
+
+    <table style="width:100%">
+        <tr>
+            <td style="vertical-align: top;">
+                <div th:insert="~{fragments/WorkloadListing :: myWorkloadListingFrag}"></div>
+            </td>
+            <td style="vertical-align: top;">
+                <div class="OuterScrollDiv">
+                    <div class="InnerScrollDiv" id="outputContainer"></div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+</body>
+
+</html>

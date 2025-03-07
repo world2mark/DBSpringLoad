@@ -1,0 +1,53 @@
+<div th:fragment="myWorkloadListingFrag">
+    <div class="workloadOuterDiv" th:each="wlInstance: ${MyWorkloadList}">
+        <div class="workloadInnerDiv">
+            <span class="workloadTitle" th:text="${wlInstance.getClass().getSimpleName}"></span>
+            <div class="workloadDescriptionDiv">
+                <span th:utext="${wlInstance.Description}"></span>
+            </div>
+            <div class="workloadURLDiv">
+                <span>Table Definitions</span>
+                <div class="workloadURLDiv">
+                    <a class="workloadURLs"
+                        th:text="@{'/create-tables'(workloadName=${wlInstance.getClass().getSimpleName})}"
+                        th:href="@{'/create-tables'(workloadName=${wlInstance.getClass().getSimpleName})}"></a>
+                </div>
+                <div class="workloadURLDiv">
+                    <a class="workloadURLs"
+                        th:text="@{'/drop-tables'(workloadName=${wlInstance.getClass().getSimpleName})}"
+                        th:href="@{'/drop-tables'(workloadName=${wlInstance.getClass().getSimpleName})}"></a>
+                </div>
+            </div>
+            <div class="workloadURLDiv" th:if="${wlInstance.getPopulateParameters.size() == 0}">
+                <span>Populate tables not available</span>
+            </div>
+            <div class="workloadURLDiv" th:if="${wlInstance.getPopulateParameters.size() > 0}">
+                <span>Populate Tables</span>
+                <div class="workloadURLDiv" th:each="popParams: ${wlInstance.getPopulateParameters}">
+                    <a class="workloadURLs"
+                        th:href="${'/populate-tables?workloadName=' + wlInstance.getClass().getSimpleName + '&' + popParams}"
+                        th:text="${'/populate-tables?workloadName=' + wlInstance.getClass().getSimpleName + '&' + popParams}"></a>
+                </div>
+            </div>
+            <div class="workloadURLDiv" th:if="${wlInstance.getDemoParameters.size() == 0}">
+                <span>Demo/Sample testing endpoints not available</span>
+            </div>
+            <div class="workloadURLDiv" th:if="${wlInstance.getDemoParameters.size() > 0}">
+                <span>Demo/Sample testing endpoints</span>
+                <div class="workloadURLDiv" th:each="demoParams: ${wlInstance.getDemoParameters}">
+                    <a class="workloadURLs"
+                        th:href="${'/run-workload?workloadName=' + wlInstance.getClass().getSimpleName + '&' + demoParams}"
+                        th:text="${'/run-workload?workloadName=' + wlInstance.getClass().getSimpleName + '&' + demoParams}"></a>
+                </div>
+            </div>
+            <div class="workloadURLDiv" th:if="${wlInstance.getDemoParameters.size() > 0}">
+                <span>Endpoint to stop workload</span>
+                <div class="workloadURLDiv">
+                    <a class="workloadURLs"
+                        th:href="${'/stop-workload?workloadName=' + wlInstance.getClass().getSimpleName}"
+                        th:text="${'/stop-workload?workloadName=' + wlInstance.getClass().getSimpleName}"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
