@@ -121,7 +121,10 @@ public class BusinessLogic implements BusinessLogicInterface {
 
     @Override
     public void TerminateConnections() throws SQLException {
-        MyConnection.close();
+        if (MyConnection != null) {
+            MyConnection.close();
+            MyConnection = null;
+        }
     }
 
 }

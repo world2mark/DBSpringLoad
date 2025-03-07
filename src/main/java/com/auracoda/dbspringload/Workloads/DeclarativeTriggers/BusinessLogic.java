@@ -37,10 +37,12 @@ public class BusinessLogic implements BusinessLogicInterface {
     public void TerminateConnections() throws SQLException {
         if (MyStmt != null) {
             MyStmt.close();
+            MyStmt = null;
         }
 
         if (MyConn != null) {
             MyConn.close();
+            MyConn = null;
         }
     }
 
