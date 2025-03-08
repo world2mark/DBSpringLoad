@@ -10,7 +10,7 @@ public interface WorkloadInterface {
         String getDescription();
 
         public BusinessLogicInterface CreateBusinessLogicInstance(
-                        DataSource myDataSource);
+                        DataSource myDataSource) throws Exception;
 
         public void CreateTables(
                         DataSource myDataSource,

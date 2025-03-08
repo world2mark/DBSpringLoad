@@ -24,7 +24,7 @@ public class BusinessLogic implements BusinessLogicInterface {
     }
 
     @Override
-    public void PrepareConnectionsAndStatements() throws SQLException {
+    public void PrepareConnectionsAndStatements(Map<String, String> MyWorkloadParams) throws SQLException {
         MyConnection = MyDataSource.getConnection();
         InsertStatement = MyConnection
                 .prepareStatement(

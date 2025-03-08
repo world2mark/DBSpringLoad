@@ -18,7 +18,7 @@ public class BusinessLogic implements BusinessLogicInterface {
         final StaticDataObjects MyStaticData;
 
         Connection MyConnection;
-        Statement BeginEnd;
+        Statement ReadCommittedBeginCommitRollBack;
         PreparedStatement GetAccountDetails;
         PreparedStatement UpdateAccountValueStmt;
         PreparedStatement SaveTransaction;
@@ -31,12 +31,37 @@ public class BusinessLogic implements BusinessLogicInterface {
         }
 
         @Override
-        public void PrepareConnectionsAndStatements() throws SQLException {
+        public void PrepareConnectionsAndStatements(Map<String, String> MyWorkloadParams) throws SQLException {
                 MyConnection = MyDataSource.getConnection();
 
                 MyConnection.setAutoCommit(true);
 
-                BeginEnd = MyConnection.createStatement();
+                ReadCommittedBeginCommitRollBack = MyConnection.createStatement();
+
+                String rcEnabled = MyWorkloadParams.get("readCommitted");
+                if (rcEnabled == null) {
+                        ReadCommittedBeginCommitRollBack
+                                        .executeUpdate("SET default_transaction_isolation = 'serializable'");
+                } else {
+                        ReadCommittedBeginCommitRollBack
+                                        .executeUpdate("SET default_transaction_isolation = 'read committed'");
+                }
+                final ResultSet checkReadCommitted = ReadCommittedBeginCommitRollBack
+                                .executeQuery("SHOW default_transaction_isolation");
+
+                checkReadCommitted.next();
+                final String readCommittedValue = checkReadCommitted.getString(1);
+                if (rcEnabled == null) {
+                        if (!readCommittedValue.equals("serializable")) {
+                                throw new IllegalStateException(
+                                                "We asked for serializable, but received: " + readCommittedValue);
+                        }
+                } else {
+                        if (!readCommittedValue.equals("read committed")) {
+                                throw new IllegalStateException(
+                                                "We asked for read committed, but received: " + readCommittedValue);
+                        }
+                }
 
                 GetAccountDetails = MyConnection.prepareStatement("select * from account_balance where account=?");
 
@@ -70,17 +95,16 @@ public class BusinessLogic implements BusinessLogicInterface {
                 String mySourceAccount = MyStaticData.GetRandomKey();
                 String myTargetAccount = MyStaticData.GetAnotherRandomKey(mySourceAccount);
 
-                final int MAX_RETRIES = 3;
+                final AccountInfo sourceDetails = GetAccountDetails(mySourceAccount);
+                // MyConnection.commit();
+
+                final AccountInfo targetDetails = GetAccountDetails(myTargetAccount);
+                // MyConnection.commit();
+
+                final int MAX_RETRIES = 4;
                 for (int retryAttempt = 0; retryAttempt < MAX_RETRIES; retryAttempt++) {
                         try {
-
-                                final AccountInfo sourceDetails = GetAccountDetails(mySourceAccount);
-                                // MyConnection.commit();
-
-                                final AccountInfo targetDetails = GetAccountDetails(myTargetAccount);
-                                // MyConnection.commit();
-
-                                BeginEnd.executeUpdate("begin");
+                                ReadCommittedBeginCommitRollBack.executeUpdate("begin");
 
                                 DebitAccount(sourceDetails, transactionValue);
 
@@ -88,7 +112,7 @@ public class BusinessLogic implements BusinessLogicInterface {
 
                                 SaveTransaction(sourceDetails, targetDetails, transactionValue);
 
-                                BeginEnd.executeUpdate("commit");
+                                ReadCommittedBeginCommitRollBack.executeUpdate("commit");
 
                                 // MyConnection.commit();
 
@@ -97,12 +121,12 @@ public class BusinessLogic implements BusinessLogicInterface {
                                 try {
                                         if (sqlE.getSQLState().equals("40001")) {
                                                 // MyConnection.rollback();
-                                                BeginEnd.executeUpdate("rollback");
+                                                ReadCommittedBeginCommitRollBack.executeUpdate("rollback");
 
                                         }
-                                        Thread.sleep((retryAttempt + 1) * 100);
+                                        Thread.sleep((retryAttempt + 1) * 150);
                                 } catch (Exception ex) {
-                                        ex.printStackTrace();
+                                        // ex.printStackTrace();
                                 }
                         }
                 }

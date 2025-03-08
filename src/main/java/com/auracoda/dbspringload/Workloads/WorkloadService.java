@@ -61,7 +61,7 @@ public class WorkloadService {
 
         public BusinessLogicInterface CreateBusinessLogicInstance(
                         long threadIndex,
-                        DataSource myDataSource) {
+                        DataSource myDataSource) throws Exception {
                 return null;
         }
 
@@ -77,14 +77,9 @@ public class WorkloadService {
 
                 for (int threadCount = 0; threadCount < threads; threadCount++) {
                         try {
-                                // final BusinessLogicInterface myInstance = BusinessLogicClass
-                                // .getDeclaredConstructor(DataSource.class).newInstance(
-                                // myDataSource,
-                                // CreateBusinessLogicInstance(myDataSource));
-                                // masterThread.AddThread(myInstance);
                                 masterThread.AddThread(CreateBusinessLogicInstance(threadCount, myDataSource));
                         } catch (Exception err) {
-                                err.printStackTrace();
+                                myMessages.AddError(err.getLocalizedMessage());
                         }
                 }
 

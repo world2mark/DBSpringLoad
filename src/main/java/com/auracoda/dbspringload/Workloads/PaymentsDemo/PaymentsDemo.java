@@ -61,11 +61,17 @@ public class PaymentsDemo extends WorkloadService {
         AddDemoParameters("duration=90&count=-1&threads=16");
         AddDemoParameters("duration=90&count=-1&threads=64");
         AddDemoParameters("duration=90&count=-1&threads=256");
+
+        AddDemoParameters("readCommitted&duration=-1&count=1&threads=1");
+        AddDemoParameters("readCommitted&duration=90&count=-1&threads=4");
+        AddDemoParameters("readCommitted&duration=90&count=-1&threads=16");
+        AddDemoParameters("readCommitted&duration=90&count=-1&threads=64");
+        AddDemoParameters("readCommitted&duration=90&count=-1&threads=256");
     };
 
     @Override
     public String getDescription() {
-        return "This demo runs a single payment process.  It reads, captures aggregates, and commits a success or fail";
+        return "This runs a payment process transaction.  It reads credit and debit accounts, updates the balances, and finally commits a transaction. This demo has endpoints for both <b>serializable</b> and <b>read-committed</b> isolation-level transactions.  Note that this is a write-heavy transaction so RC has little to no impact.";
     }
 
     @Override
@@ -90,7 +96,7 @@ public class PaymentsDemo extends WorkloadService {
     @Override
     public BusinessLogicInterface CreateBusinessLogicInstance(
             long threadIndex,
-            DataSource myDataSource) {
+            DataSource myDataSource) throws Exception {
         return new BusinessLogic(
                 myDataSource,
                 staticData);

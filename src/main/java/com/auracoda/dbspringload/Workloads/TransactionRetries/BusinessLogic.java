@@ -27,7 +27,7 @@ public class BusinessLogic implements BusinessLogicInterface {
     }
 
     @Override
-    public void PrepareConnectionsAndStatements() throws SQLException {
+    public void PrepareConnectionsAndStatements(Map<String, String> MyWorkloadParams) throws SQLException {
         MyConnection = MyDataSource.getConnection();
         InsertStatement = MyConnection
                 .prepareStatement(
@@ -106,7 +106,7 @@ public class BusinessLogic implements BusinessLogicInterface {
                     // add an additional 250 ms to the back-off wait time
                     RetryBackoffTimeMS += 250;
                 } else {
-                    // All other exceptions shoudl be treated as failures
+                    // All other exceptions should be treated as failures
                     throw sqlE;
                 }
             }

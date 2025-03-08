@@ -16,6 +16,7 @@ import com.auracoda.dbspringload.Workloads.TransactionRetries.TransactionRetries
 import com.auracoda.dbspringload.Workloads.ContentionDemo.ContentionDemo;
 import com.auracoda.dbspringload.Workloads.DeclarativeTriggers.DeclarativeTriggers;
 import com.auracoda.dbspringload.Workloads.InsertReadDemo.InsertReadDemo;
+import com.auracoda.dbspringload.Workloads.MultipleActivePortals.MultipleActivePortals;
 import com.auracoda.dbspringload.Workloads.PaymentsDemo.PaymentsDemo;
 
 @Service
@@ -33,6 +34,7 @@ public class WorkloadLibraryEndpoints {
         MyWorkloads.add(new TransactionRetries());
         MyWorkloads.add(new DeclarativeTriggers());
         MyWorkloads.add(new ContentionDemo());
+        MyWorkloads.add(new MultipleActivePortals());
     };
 
     @GetMapping("create-tables")

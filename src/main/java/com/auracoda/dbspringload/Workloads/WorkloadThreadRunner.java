@@ -80,7 +80,7 @@ public class WorkloadThreadRunner {
             long FailCountValue = 0;
             try {
 
-                MyWorkload.PrepareConnectionsAndStatements();
+                MyWorkload.PrepareConnectionsAndStatements(MyWorkloadParams);
 
                 final long endTime = System.currentTimeMillis() + (duration * 1000);
 
@@ -104,11 +104,11 @@ public class WorkloadThreadRunner {
                 }
 
             } catch (Exception sqlE) {
-                System.out.println(sqlE.getLocalizedMessage());
+                // sqlE.printStackTrace();
                 try {
                     Thread.sleep(500);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    // e.printStackTrace();
                 }
                 StopWorkload();
             } finally {
@@ -117,7 +117,7 @@ public class WorkloadThreadRunner {
                 try {
                     MyWorkload.TerminateConnections();
                 } catch (SQLException sqlE) {
-                    System.out.println(sqlE.getLocalizedMessage());
+                    // sqlE.printStackTrace();
                 }
             }
 

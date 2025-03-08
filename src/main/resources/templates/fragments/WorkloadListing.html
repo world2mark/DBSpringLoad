@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="workloadURLDiv" th:if="${wlInstance.getPopulateParameters.size() == 0}">
-                <span>Populate tables not available</span>
+                <span>Populate tables not applicable</span>
             </div>
             <div class="workloadURLDiv" th:if="${wlInstance.getPopulateParameters.size() > 0}">
                 <span>Populate Tables</span>
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="workloadURLDiv" th:if="${wlInstance.getDemoParameters.size() == 0}">
-                <span>Demo/Sample testing endpoints not available</span>
+                <span>Demo/Sample testing endpoints not applicable</span>
             </div>
             <div class="workloadURLDiv" th:if="${wlInstance.getDemoParameters.size() > 0}">
                 <span>Demo/Sample testing endpoints</span>

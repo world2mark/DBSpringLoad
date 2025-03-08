@@ -24,7 +24,7 @@ public class ContentionDemo extends WorkloadService {
 
     @Override
     public String getDescription() {
-        return "This is an implementation of Alex Entin&apos;s runbook on the various types of contention that may occur in a live environment. "
+        return "Academic exercise: This is an implementation of Alex Entin&apos;s runbook on the various types of contention that may occur in a live environment. "
                 +
                 "The business logic is specific to the write-blocking example, as illustrated in <a target=\"#\" href=\"https://github.com/cockroachlabs/cockroachdb-runbook-template/blob/main/diagnostic-support/troubleshooting-sql-contention.md#contention-illustration-32--writes-are-blocking-reads-and-writes\">this section of the runbook</a>.";
     };
@@ -32,7 +32,7 @@ public class ContentionDemo extends WorkloadService {
     @Override
     public BusinessLogicInterface CreateBusinessLogicInstance(
             long threadIndex,
-            DataSource myDataSource) {
+            DataSource myDataSource) throws Exception {
         return new BusinessLogic(myDataSource);
     }
 

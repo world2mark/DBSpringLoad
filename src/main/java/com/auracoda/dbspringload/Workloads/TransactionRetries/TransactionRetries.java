@@ -30,7 +30,7 @@ public class TransactionRetries extends WorkloadService {
     @Override
     public BusinessLogicInterface CreateBusinessLogicInstance(
             long threadIndex,
-            DataSource myDataSource) {
+            DataSource myDataSource) throws Exception {
         return new BusinessLogic(myDataSource);
     }
 

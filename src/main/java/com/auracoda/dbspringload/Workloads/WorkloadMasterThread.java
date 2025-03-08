@@ -35,7 +35,7 @@ public class WorkloadMasterThread {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    // e.printStackTrace();
                 }
 
                 long SuccessfulRuns = 0;

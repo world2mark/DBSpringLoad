@@ -21,7 +21,7 @@ public class BusinessLogic implements BusinessLogicInterface {
     }
 
     @Override
-    public void PrepareConnectionsAndStatements() throws SQLException {
+    public void PrepareConnectionsAndStatements(Map<String, String> MyWorkloadParams) throws SQLException {
     };
 
     @Override
@@ -51,20 +51,20 @@ public class BusinessLogic implements BusinessLogicInterface {
                 MyStmt.executeUpdate(("COMMIT"));
                 System.out.println("Session 1 completed!");
             } catch (Exception myEx) {
-                myEx.printStackTrace();
+                // myEx.printStackTrace();
             } finally {
                 if (MyStmt != null) {
                     try {
                         MyStmt.close();
                     } catch (SQLException sqlE) {
-                        sqlE.printStackTrace();
+                        // sqlE.printStackTrace();
                     }
                 }
                 if (MyConn != null) {
                     try {
                         MyConn.close();
                     } catch (SQLException sqlE) {
-                        sqlE.printStackTrace();
+                        // sqlE.printStackTrace();
                     }
                 }
                 sharedMap.put(StmtMap1, ThreadCompleted);
@@ -92,20 +92,20 @@ public class BusinessLogic implements BusinessLogicInterface {
                 MyStmt.executeUpdate(("COMMIT"));
                 System.out.println("Session 2 completed!");
             } catch (Exception myEx) {
-                myEx.printStackTrace();
+                // myEx.printStackTrace();
             } finally {
                 if (MyStmt != null) {
                     try {
                         MyStmt.close();
                     } catch (SQLException sqlE) {
-                        sqlE.printStackTrace();
+                        // sqlE.printStackTrace();
                     }
                 }
                 if (MyConn != null) {
                     try {
                         MyConn.close();
                     } catch (SQLException sqlE) {
-                        sqlE.printStackTrace();
+                        // sqlE.printStackTrace();
                     }
                 }
                 sharedMap.put(StmtMap2, ThreadCompleted);
@@ -132,20 +132,20 @@ public class BusinessLogic implements BusinessLogicInterface {
                 MyStmt.executeUpdate(("COMMIT"));
                 System.out.println("Session 3 completed!");
             } catch (Exception myEx) {
-                myEx.printStackTrace();
+                // myEx.printStackTrace();
             } finally {
                 if (MyStmt != null) {
                     try {
                         MyStmt.close();
                     } catch (SQLException sqlE) {
-                        sqlE.printStackTrace();
+                        // sqlE.printStackTrace();
                     }
                 }
                 if (MyConn != null) {
                     try {
                         MyConn.close();
                     } catch (SQLException sqlE) {
-                        sqlE.printStackTrace();
+                        // sqlE.printStackTrace();
                     }
                 }
                 sharedMap.put(StmtMap3, ThreadCompleted);

@@ -5,7 +5,7 @@ import java.util.Map;
 
 public interface BusinessLogicInterface {
 
-    void PrepareConnectionsAndStatements() throws SQLException;
+    void PrepareConnectionsAndStatements(Map<String, String> MyWorkloadParams) throws SQLException;
 
     boolean RunBusinessLogic(Map<String, String> MyWorkloadParams) throws Exception;
 

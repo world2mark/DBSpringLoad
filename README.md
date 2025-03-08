@@ -26,6 +26,8 @@ sudo dnf install java-21-amazon-corretto
 
 ## Run App
 
+Example using zone-2 (auracoda DB server)
+
 java -jar dbspringload-0.0.1-SNAPSHOT.jar \
 --spring.datasource.url=jdbc:postgresql://zone-2.auracoda.com:26257/dbspringload \
 --spring.datasource.hikari.data-source-properties.sslcert=zone-2/certs/client.root.crt \
