@@ -23,6 +23,9 @@ public class WorkloadMasterThread {
             Map<String, String> MyWorkloadParams) {
 
         Thread.startVirtualThread(() -> {
+
+            final long testStart = System.currentTimeMillis();
+
             for (WorkloadThreadRunner myThread : MyThreads) {
                 myThread.RunWorkload(
                         duration,
@@ -54,7 +57,9 @@ public class WorkloadMasterThread {
                         + SuccessfulRuns + "), Failed runs (" + FailedRuns + ")");
             }
 
-            System.out.println("All threads completed");
+            final long testEnd = System.currentTimeMillis();
+
+            System.out.println("All threads completed, time taken: " + ((testEnd - testStart) / 1000) + " seconds");
 
         });
 
