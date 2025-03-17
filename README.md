@@ -79,3 +79,18 @@ curl "localhost:8080/insert-read/run-workload?duration=10&threads=1&count=-1"
 https://www.cockroachlabs.com/docs/stable/transaction-retry-error-example
 
 SET inject_retry_errors_enabled = 'true';
+
+
+## Build image
+
+2025-03-17 - WORKS!
+
+oc new-build --binary --name dbspringload
+
+oc start-build dbspringload --from-dir=.
+
+oc new-app dbspringload
+
+- Need to create the certs folder (mount + actual certs)
+- Need to update the environment variables
+- Apply the local LB and not the public LB

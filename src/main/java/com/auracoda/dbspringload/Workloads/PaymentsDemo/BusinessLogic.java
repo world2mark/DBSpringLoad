@@ -163,7 +163,7 @@ public class BusinessLogic implements BusinessLogicInterface {
                 // Set balance
                 UpdateAccountValueStmt.setDouble(1, creditAcctRS.balance + transValue);
                 // Set reserve
-                UpdateAccountValueStmt.setDouble(2, creditAcctRS.reserve + transValue);
+                //UpdateAccountValueStmt.setDouble(2, creditAcctRS.reserve);
 
                 UpdateAccountValueStmt.executeUpdate();
         }

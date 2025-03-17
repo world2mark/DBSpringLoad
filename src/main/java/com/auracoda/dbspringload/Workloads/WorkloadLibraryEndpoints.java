@@ -65,8 +65,8 @@ public class WorkloadLibraryEndpoints {
             if (rowCount != null) {
                 actualRowCount = rowCount.longValue();
             }
-            if (actualRowCount <= 0 || actualRowCount > 100000) {
-                throw new IllegalArgumentException("The rowCount paramter value must be between 1 and 100000");
+            if (actualRowCount <= 0 || actualRowCount > 1000000) {
+                throw new IllegalArgumentException("The rowCount paramter value must be between 1 and 1000000");
             }
             GetWorkloadByName(workloadName).PopulateTables(actualRowCount, workloadParams, myDataSource, myMessages);
         } catch (Exception myEx) {

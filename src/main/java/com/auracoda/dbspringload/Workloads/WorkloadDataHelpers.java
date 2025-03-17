@@ -32,4 +32,15 @@ public class WorkloadDataHelpers {
         return myRandom.nextInt(1 + max - min) + min;
     }
 
+    public static byte[] CreateRandomBytes(int max) {
+        final byte[] myData = new byte[max];
+        for (int nextByte = 0; nextByte < max; nextByte++) {
+            myData[nextByte] = (byte) RandomInt(0, 127);
+        }
+        return myData;
+    }
+
+    public static String CreateRandomJSON(int objCount) {
+        return "{\"myField\":true,\"myName\":\"mark zlamal\", \"myValue\": 12345, \"moreDefs\": {\"type\":\"basic\",\"quantity\": 100}}";
+    }
 }
