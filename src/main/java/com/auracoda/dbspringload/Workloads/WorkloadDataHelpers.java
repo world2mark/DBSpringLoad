@@ -1,5 +1,8 @@
 package com.auracoda.dbspringload.Workloads;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Random;
 
 public class WorkloadDataHelpers {
@@ -42,5 +45,18 @@ public class WorkloadDataHelpers {
 
     public static String CreateRandomJSON(int objCount) {
         return "{\"myField\":true,\"myName\":\"mark zlamal\", \"myValue\": 12345, \"moreDefs\": {\"type\":\"basic\",\"quantity\": 100}}";
+    }
+
+    // Example: "2025-03-24 14:30:00"
+    public static Timestamp StringToTimestamp(String dateString) throws ParseException {
+        // Define the format that matches the date string
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        // Parse the date string into a Date object
+        java.util.Date parsedDate = dateFormat.parse(dateString);
+        // Convert the Date object into a Timestamp
+        Timestamp timestamp = new Timestamp(parsedDate.getTime());
+
+        return timestamp;
     }
 }
